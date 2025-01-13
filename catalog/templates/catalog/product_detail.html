@@ -1,14 +1,29 @@
 {% extends 'catalog/base.html' %}
-{% block title %}Страница продукта{% endblock %}
+{% load my_tags %}
 {% block content %}
-<body>
-<h1>Информация о продукте</h1>
-<p>Название: {{ name }}</p>
-<p>Описание: {{ description }}</p>
-<p>Изображение: <img src="media/photos"  alt="{{ product_name }}"></p>
-<p>Категория: {{ category }}</p>
-<p>Стоимость: {{ price }}</p>
-<p>Дата создания: {{ created_at }}</p>
-<p>Дата последнего изменения: {{ updated_at }}</p>
-</body>
+<div class="album py-5 bg-body-tertiary">
+    <div class="container">
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+        <div class="col">
+          <div class="card shadow-sm">
+            <div class="card-body">
+                <h1>Информация о продукте</h1>
+                   <p class="card-text">Название продукта: {{ product.name }}</p>
+                   <p class="card-text">Описание продукта: {{ product.description | truncatechars:100}} </p>
+                   <p class="card-text">Изображение: <img src="{{ product.image | media_filter }}" width=" 400" height=" 270"></p>
+                   <p class="card-text">Категория продукта: {{ product.category}} </p>
+                   <p class="card-text">Стоимость: {{ product.price }}</p>
+                   <p class="card-text">Дата создания: {{ product.created_at }}</p>
+                   <p class="card-text">Дата последнего изменения: {{ product.updated_at }}</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <a class="btn btn-primary" href="{% url 'catalog:product_list' %}" role="button">Вернуться</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 {% endblock %}
