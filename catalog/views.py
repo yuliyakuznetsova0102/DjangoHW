@@ -1,8 +1,12 @@
+from itertools import product
+
 from django.shortcuts import render, get_object_or_404
 from catalog.models import Product
 
 def home_page(request):
-    return render(request, 'catalog/home.html')
+    products = Product.objects.all()
+    context = {'products': products}
+    return render(request, 'catalog/home.html', context)
 
 def contacts_page(request):
      return render(request, 'catalog/contacts.html')
