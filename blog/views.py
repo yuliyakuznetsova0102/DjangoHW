@@ -16,9 +16,9 @@ class BlogPostCreateView(CreateView):
     success_url = reverse_lazy('blog:blog_list')
 
     def get_object(self, queryset=None):
-        slug = self.kwargs.get(self.slug_url_kwarg)
+        content = self.kwargs.get(self.content_url_kwarg)
         queryset = queryset or self.get_queryset()
-        return get_object_or_404(queryset, **{self.slug_field: slug})
+        return get_object_or_404(queryset, **{self.content_field: content})
 
 
 class BlogPostDetailView(DetailView):
