@@ -1,18 +1,18 @@
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView, TemplateView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from blog.models import BlogPost
+from blog.models import Blog
 from django.urls import reverse_lazy, reverse
 
 class BlogPostListView(ListView):
-    model = BlogPost
+    model = Blog
 
     def get_queryset(self):
-        return BlogPost.objects.filter(is_published=False)
+        return Blog.objects.filter(is_published=False)
 
 class BlogPostCreateView(CreateView):
-    model = BlogPost
-    fields = ('title', 'description', 'slug')
+    model = Blog
+    fields = ['title', 'content', 'image']
     success_url = reverse_lazy('blog:blog_list')
 
     def get_object(self, queryset=None):
@@ -21,9 +21,8 @@ class BlogPostCreateView(CreateView):
         return get_object_or_404(queryset, **{self.slug_field: slug})
 
 
-
 class BlogPostDetailView(DetailView):
-    model = BlogPost
+    model = Blog
 
     def get_success_url(self):
         return reverse('blog:blog_detail', args=[self.kwargs.get('pk')])
@@ -36,15 +35,16 @@ class BlogPostDetailView(DetailView):
         return self.object
 
 class BlogPostUpdateView(UpdateView):
-    model = BlogPost
-    fields = ('title', 'description')
+    model = Blog
+    template_name = 'blog/blog_form.html'
+    fields = ['title', 'content', 'image']
     success_url = reverse_lazy('blog:blog_list')
 
     def get_success_url(self):
         return reverse('blog:blog_detail', args=[self.kwargs.get('pk')])
 
 class BlogPostDeleteView(DeleteView):
-    model = BlogPost
+    model = Blog
     success_url = reverse_lazy('blog:blog_list')
 
 

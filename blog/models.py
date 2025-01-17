@@ -4,12 +4,11 @@ from django.utils.text import slugify
 
 
 
-class BlogPost(models.Model):
+class Blog(models.Model):
     title = models.CharField(max_length=150, verbose_name='Заголовок блога')
-    slug = slugify('Пример блога')
-    description = models.TextField(null=True)
+    content = models.TextField()
     image = models.ImageField(upload_to='images/', blank=True, null=True, verbose_name='Изображение')
-    created_at = models.DateField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='дата создания')
     is_published = models.BooleanField(default=False, verbose_name='Уже тут')
     views_counter = models.PositiveIntegerField(verbose_name='Количество просмотров', default=0)
 
