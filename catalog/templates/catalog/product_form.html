@@ -1,15 +1,37 @@
 {% extends 'catalog/base.html' %}
 
-{% block title %}Формат продукта{% endblock %}
+
+{% block title %}Добавить продукт{% endblock %}
 
 {% block content %}
 
-<h2>Формат продукта</h2>
-<form method="post">
-    {% csrf_token %}
-    {{ form.non_field_errors }}
-    {{ form.as_p }}
-    <button type="submit" class="btn btn-primary">Сохранить</button>
-    <a href="{% url 'catalog:product_list' %}" class="btn btn-secondary">Отмена</a>
-</form>
+
+<div class="container">
+    <div class="row text-start">
+        <h1 class="mb-4">Добавить продукт</h1>
+        <div class="col-12">
+            <div class="card mb-4 box-shadow">
+
+                <div class="card-body">
+
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        {% if object %}
+                        <button type="submit" class="btn btn-outline-primary">Изменить</button>
+                        {% else %}
+                        <button type="submit" class="btn btn-outline-primary">Добавить</button>
+                        {% endif %}
+
+                    </form>
+
+
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
 {% endblock %}
