@@ -4,11 +4,13 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from blog.models import Blog
 from django.urls import reverse_lazy, reverse
 
+
 class BlogPostListView(ListView):
     model = Blog
 
     def get_queryset(self):
         return Blog.objects.filter(is_published=False)
+
 
 class BlogPostCreateView(CreateView):
     model = Blog
@@ -28,11 +30,11 @@ class BlogPostDetailView(DetailView):
         return reverse('blog:blog_detail', args=[self.kwargs.get('pk')])
 
     def get_object(self, queryset=None):
-
         self.object = super().get_object(queryset)
         self.object.views_counter += 1
         self.object.save()
         return self.object
+
 
 class BlogPostUpdateView(UpdateView):
     model = Blog
@@ -42,6 +44,7 @@ class BlogPostUpdateView(UpdateView):
 
     def get_success_url(self):
         return reverse('blog:blog_detail', args=[self.kwargs.get('pk')])
+
 
 class BlogPostDeleteView(DeleteView):
     model = Blog

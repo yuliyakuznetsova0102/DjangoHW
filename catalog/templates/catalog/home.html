@@ -40,20 +40,21 @@
 </head>
 <body>
 <h1>Каталог товаров</h1>
-    <div class="product-list">
-        {% for product in products %}
-            <div class="card">
-                <img src="{{ product.image | media_filter }}" alt="{{ product.name }}">
-                <h2>{{ product.name }}</h2>
-                <p>Цена: {{ product.price }}</p>
-                <p>{{ product.description | truncatechars:100 }}</p>
-                 <a class="btn btn-primary" href="{% url 'catalog:product_detail' product.pk %}" role="button">Посмотреть</a>
-            </div>
-
-        {% empty %}
-            <p>Нет доступных товаров.</p>
-        {% endfor %}
+<a href="{% url 'catalog:product_create' %}" class="btn btn-primary"> Создать новый продукт </a>
+<div class="product-list">
+    {% for product in products %}
+    <div class="card">
+        <img src="{{ product.image | media_filter }}" alt="{{ product.name }}">
+        <h2>{{ product.name }}</h2>
+        <p>Цена: {{ product.price }}</p>
+        <p>{{ product.description | truncatechars:100 }}</p>
+        <a class="btn btn-primary" href="{% url 'catalog:product_detail' product.pk %}" role="button">Посмотреть</a>
     </div>
+
+    {% empty %}
+    <p>Нет доступных товаров.</p>
+    {% endfor %}
+</div>
 </body>
 </html>
 {% endblock %}

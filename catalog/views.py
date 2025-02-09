@@ -6,19 +6,21 @@ from .forms import ProductForm
 from django.urls import reverse_lazy
 
 
-
 class HomePageView(ListView):
     model = Product
     template_name = 'catalog/home.html'
     context_object_name = 'products'
 
+
 class ContactsPageView(TemplateView):
     template_name = 'catalog/contacts.html'
+
 
 class ProductListView(ListView):
     model = Product
     template_name = 'catalog/product_list.html'
     context_object_name = 'products'
+
 
 class ProductDetailView(DetailView):
     model = Product
@@ -38,6 +40,7 @@ class ProductCreateView(CreateView):
     form_class = ProductForm
     template_name = 'catalog/product_form.html'
     success_url = reverse_lazy('catalog:product_list')
+
 
 class ProductDeleteView(DeleteView):
     model = Product

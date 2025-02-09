@@ -3,7 +3,6 @@ from django.utils import timezone
 from django.utils.text import slugify
 
 
-
 class Blog(models.Model):
     title = models.CharField(max_length=150, verbose_name='Заголовок блога')
     content = models.TextField()
