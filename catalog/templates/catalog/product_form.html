@@ -18,11 +18,11 @@
                         {% csrf_token %}
                         {{ form.as_p }}
                         {% if object %}
-                        <button type="submit" class="btn btn-outline-primary">Изменить</button>
+                        <button type="submit" class="btn btn-outline-primary">Сохранить</button>
                         {% else %}
                         <button type="submit" class="btn btn-outline-primary">Добавить</button>
                         {% endif %}
-
+                         <a href="{% url 'catalog:product_list' %}" calss="btn ntn-primary"> Отменить </a>
                     </form>
 
 

@@ -4,6 +4,8 @@ from .models import Product
 from django.urls import reverse
 from .forms import ProductForm
 from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 
 
 class HomePageView(ListView):
@@ -28,14 +30,14 @@ class ProductDetailView(DetailView):
     context_object_name = 'product'
 
 
-class ProductUpdateView(UpdateView):
+class ProductUpdateView(LoginRequiredMixin,UpdateView):
     model = Product
     template_name = 'catalog/product_form.html'
     fields = ['name', 'description', 'image', 'price']
     success_url = reverse_lazy('catalog:product_list')
 
 
-class ProductCreateView(CreateView):
+class ProductCreateView(LoginRequiredMixin,CreateView):
     model = Product
     form_class = ProductForm
     template_name = 'catalog/product_form.html'
