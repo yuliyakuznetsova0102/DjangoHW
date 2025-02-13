@@ -1,0 +1,60 @@
+{% extends 'catalog/base.html' %}
+{% load my_tags %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catalog</title>
+    <style>
+        h1 {
+            margin-bottom: 20px;
+        }
+        .product-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            max-width: 1200px;
+        }
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            width: 200px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+            overflow: hidden;
+            text-align: center;
+        }
+        .card:hover {
+            transform: scale(1.05);
+        }
+        .card h2 {
+            font-size: 20px;
+            margin: 10px 0;
+        }
+        .card p {
+            margin: 5px 0;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+<h1>Каталог товаров</h1>
+<a href="{% url 'catalog:product_create' %}" class="btn btn-primary"> Создать новый продукт </a>
+<div class="product-list">
+    {% for product in products %}
+    <div class="card">
+        <img src="{{ product.image | media_filter }}" alt="{{ product.name }}">
+        <h2>{{ product.name }}</h2>
+        <p>Цена: {{ product.price }}</p>
+        <p>{{ product.description | truncatechars:100 }}</p>
+        <a class="btn btn-primary" href="{% url 'catalog:product_detail' product.pk %}" role="button">Посмотреть</a>
+    </div>
+
+    {% empty %}
+    <p>Нет доступных товаров.</p>
+    {% endfor %}
+</div>
+</body>
+</html>
+{% endblock %}
