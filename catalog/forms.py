@@ -14,10 +14,11 @@ class StyleFormMixin:
                 field.widget.attrs["class"] = "form-control"
 
 
-class ProductForm(StyleFormMixin, ModelForm):
+class ProductForm(ModelForm):
     class Meta:
         model = Product
-        fields = '__all__'
+        # Исключаем поле `owner` из формы
+        fields = ['name', 'description', 'price', 'status', 'image', 'category']  # Укажите нужные поля
 
     def clean_name(self):
         banned_words = ["казино", "криптовалюта", "крипта", "биржа", "дешево", "бесплатно", "обман", "полиция", "радар"]
@@ -48,3 +49,4 @@ class ProductForm(StyleFormMixin, ModelForm):
                 raise ValidationError('Размер файла не должен превышать 5 МБ')
             if not (image.name.lower().endswith('.jpg') or image.name.lower().endswith('.png')):
                 raise ValidationError('Вы можете загрузить только .JPG и .PNG файлы')
+        return image

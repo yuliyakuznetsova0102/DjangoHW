@@ -1,8 +1,7 @@
 from django.contrib.auth.models import AbstractUser
-from  django.db import models
-from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+
 
 
 class CustomUser(AbstractUser):
@@ -12,8 +11,9 @@ class CustomUser(AbstractUser):
     phone_number = models.CharField(max_length=15, blank=True, null=True)  # Номер телефона
     country = models.CharField(max_length=100, blank=True, null=True)  # Страна
 
+
     USERNAME_FIELD = 'email'  # Используем email для авторизации
     REQUIRED_FIELDS = []  # Убираем username из обязательных полей
 
     def __str__(self):
-        return self.emaill
+        return self.email
