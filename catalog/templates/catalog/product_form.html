@@ -1,0 +1,35 @@
+{% extends 'catalog/base.html' %}
+
+{% block title %}
+    {% if object %}Редактировать продукт{% else %}Добавить продукт{% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row text-start">
+        <h1 class="mb-4">
+            {% if object %}Редактировать продукт{% else %}Добавить продукт{% endif %}
+        </h1>
+        <div class="col-12">
+            <div class="card mb-4 box-shadow">
+                <div class="card-body">
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+
+                        {# Кнопка "Сохранить" или "Добавить" #}
+                        {% if object %}
+                            <button type="submit" class="btn btn-outline-primary">Сохранить</button>
+                        {% else %}
+                            <button type="submit" class="btn btn-outline-primary">Добавить</button>
+                        {% endif %}
+
+                        {# Кнопка "Отменить" #}
+                        <a href="{% url 'catalog:product_list' %}" class="btn btn-outline-secondary">Отменить</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
